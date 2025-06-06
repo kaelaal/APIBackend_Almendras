@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 import pandas as pd
 import joblib
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Add this line
 
 # Load model and features
 cls_model = joblib.load('trained_data/model_cls.pkl')
@@ -11,6 +13,8 @@ label_encoder = joblib.load('trained_data/label_encoder.pkl')
 
 @app.route('/gradestudent', methods=['POST'])
 def gradestudent():
+
+  
     data = request.json
 
     # Remove 'Parental_Education_Level' if accidentally included
